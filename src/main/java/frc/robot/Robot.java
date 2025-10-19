@@ -6,8 +6,12 @@ package frc.robot;
 
 import org.littletonrobotics.junction.LoggedRobot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Drivetrain.Drivetrain;
+import frc.robot.Vision.Vision;
 
 public class Robot extends LoggedRobot { //改成 LoggedRobot 以使用機器人日誌功能
   private Command m_autonomousCommand;
@@ -30,7 +34,9 @@ public class Robot extends LoggedRobot { //改成 LoggedRobot 以使用機器人
   public void disabledPeriodic() {}
 
   @Override
-  public void disabledExit() {}
+  public void disabledExit() {
+    Drivetrain.getInstance().PoseEstimator.addVisionMeasurement(Vision.getInstance().getPose(), RobotController.getFPGATime()/1e6); //TODO: 看這邊
+  }
 
   @Override
   public void autonomousInit() {

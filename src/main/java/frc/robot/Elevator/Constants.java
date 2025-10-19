@@ -5,7 +5,7 @@ import static edu.wpi.first.units.Units.Millimeters;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
-//一樣要先改這邊的參數，然後電梯要先空轉測完大概沒問題之後再裝機構上去
+//TODO: 一樣要先改這邊的參數，然後電梯要先空轉測完大概沒問題之後再裝機構上去
 public class Constants {
     // 馬達ID
     public static final int LeftID = 21;
