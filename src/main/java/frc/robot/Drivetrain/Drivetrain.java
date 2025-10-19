@@ -36,6 +36,7 @@ public class Drivetrain extends SubsystemBase{
     public DifferentialDrivePoseEstimator PoseEstimator;
 
     public static Drivetrain drivetrain;
+    public String NowDoing = "Idle";
 
     //Simulation
     public SparkMaxSim LeftSim, RightSim;
@@ -172,7 +173,8 @@ public class Drivetrain extends SubsystemBase{
             double leftSpeed = throttle.get() + turn.get();
             double rightSpeed = throttle.get() - turn.get();
             drive(leftSpeed, rightSpeed);
-        }).withName(String.format("drive with throttle %.2f turn %.2f", throttle.get(), turn.get()));
+            NowDoing = "drive";
+        }).withName(String.format("drive with throttle %.2f turn %.2f", throttle.get(), turn.get())).andThen(runOnce(() -> NowDoing = "Idle"));
     }
 
     public void simInit(){

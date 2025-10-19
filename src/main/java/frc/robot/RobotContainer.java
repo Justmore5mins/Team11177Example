@@ -6,12 +6,17 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Auto.Auto;
 import frc.robot.Drivetrain.Drivetrain;
+import frc.robot.Elevator.Elevator;
+import frc.utils.ReefHeight;
 
 public class RobotContainer {
   public Drivetrain drivetrain = Drivetrain.getInstance();
+  public Elevator elevator = Elevator.getInstance();
   public Joystick joystick = new Joystick(0);
+  public Joystick elevatorJoystick = new Joystick(1);
   public Telemetry telemetry = new Telemetry();
 
   public RobotContainer() {
@@ -24,9 +29,25 @@ public class RobotContainer {
     configureBindings();
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    new Trigger(() -> joystick.getRawButton(1)) 
+      .onTrue(elevator.elevate(ReefHeight.L1)); //升到L1
+    new Trigger(() -> joystick.getRawButton(2))
+      .onTrue(elevator.elevate(ReefHeight.L2)); //升到L2
+    new Trigger(() -> joystick.getRawButton(3))
+      .onTrue(elevator.elevate(ReefHeight.L3)); //升到L3
+    new Trigger(() -> joystick.getRawButton(5))
+      .whileTrue(elevator.shooters.shootCoral(true));
+    new Trigger(() -> joystick.getRawButton(6))
+      .whileTrue(elevator.shooters.shootCoral(false));
+    new Trigger(() -> joystick.getRawAxis(7) > 0.5)
+      .whileTrue(elevator.shooters.shootAlgae(true));
+    new Trigger(() -> joystick.getRawAxis(8) > 0.5)
+      .whileTrue(elevator.shooters.shootAlgae(false));
+
+  }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return Auto.getAuto();
   }
 }
