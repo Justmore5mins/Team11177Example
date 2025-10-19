@@ -60,11 +60,11 @@ public class Elevator extends SubsystemBase{
         RightMotor.configure(RightConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
-    public Command elevate(ReefHeight height){
-        return runOnce(()-> elevate(height.getHeight()))
-                .withName("升到" + height.name())
-                .alongWith(runOnce(() -> NowDoing = "升到" + height.name()))
-                .until(() -> isArrived(height.getHeight())).finallyDo((interrupted) -> NowDoing = "Idle");
+    public Command elevate(ReefHeight height) {
+        return run(() -> elevate(height.getHeight()))
+                .beforeStarting(runOnce(() -> NowDoing = "升到" + height.name()))
+                .until(() -> isArrived(height.getHeight()))
+                .finallyDo((interrupted) -> NowDoing = "Idle");
     }
 
     public void elevate(double height){
@@ -74,6 +74,12 @@ public class Elevator extends SubsystemBase{
     public boolean isArrived(double setPoints){
         double currentPosition = MotionEncoder.getPosition();
         return Math.abs(setPoints - currentPosition) <= Constants.ElevatorTolerance;
+    }
+
+    public Command seedPosition(){
+        return runOnce(() -> {
+            MotionEncoder.setPosition(0);
+        });
     }
 
     public static Elevator getInstance(){

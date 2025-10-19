@@ -30,6 +30,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    //所有的按鈕都可以根據driver的習慣來改
     new Trigger(() -> joystick.getRawButton(1)) 
       .onTrue(elevator.elevate(ReefHeight.L1)); //升到L1
     new Trigger(() -> joystick.getRawButton(2))
@@ -44,7 +45,8 @@ public class RobotContainer {
       .whileTrue(elevator.shooters.shootAlgae(true));
     new Trigger(() -> joystick.getRawAxis(8) > 0.5)
       .whileTrue(elevator.shooters.shootAlgae(false));
-
+    new Trigger(() -> joystick.getRawButton(9))
+      .onTrue(elevator.seedPosition());
   }
 
   public Command getAutonomousCommand() {

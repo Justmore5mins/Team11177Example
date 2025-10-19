@@ -19,4 +19,4 @@ Shooter
 
 其他備註
 ---------
-- 因為不確定URCL會記錄多少資訊，所以就先用Telemtry裡面的那些
+- 因為不確定URCL會記錄多少資訊，所以就先用Telemtry的Logger裡面的那些

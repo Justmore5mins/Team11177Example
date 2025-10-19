@@ -19,6 +19,7 @@ public class Constants {
     public static final double WheelCirc = Inches.of(6).times(Math.PI).in(Meters); //輪周長(公尺)
     public static final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Centimeters.of(70)); //輪距, Kinematics是用來做運動學計算的
     public static final Pose2d InitialPose = new Pose2d(7.6,7, Rotation2d.kZero); //初始位置
+    public static final int PDHCANID = 20; //配電盤的CAN ID
 
     public static final double PositionConvertionFactor = 1/GearRatio*WheelCirc; //位置轉換因子(編碼器單位轉公尺)
     public static final double VelocityConvertionFactor = PositionConvertionFactor/60/60; //速度轉換因子(編碼器單位轉公尺/秒) 會除兩個60因為編碼器是RPM(第一個是變成速度，第二個是變成每秒鐘)

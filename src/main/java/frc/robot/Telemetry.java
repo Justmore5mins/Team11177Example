@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.inputs.LoggedPowerDistribution;
+import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.urcl.URCL;
 
@@ -16,9 +18,11 @@ import edu.wpi.first.networktables.StringPublisher;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Drivetrain.Constants;
 import frc.robot.Drivetrain.Drivetrain;
 import frc.robot.Elevator.Elevator;
 
@@ -84,6 +88,7 @@ public class Telemetry extends SubsystemBase{
         Logger.recordMetadata("NowDoing/Drivetrain", drivetrain.NowDoing);
         Logger.recordOutput("NowDoing/Elevator", elevator.NowDoing);
         Logger.registerURCL(URCL.startExternal());
+        LoggedPowerDistribution.getInstance(Constants.PDHCANID, ModuleType.kCTRE);
         Logger.setReplaySource(new WPILOGReader("home/lvuser/logs/%s.wplog".formatted(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))));
     }
 
