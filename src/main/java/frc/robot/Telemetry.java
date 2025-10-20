@@ -1,11 +1,7 @@
 package frc.robot;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggedPowerDistribution;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import org.littletonrobotics.urcl.URCL;
 
@@ -40,7 +36,6 @@ public class Telemetry extends SubsystemBase{
     public StructArraySubscriber<Pose3d> VisionTargets;
 
     public static Telemetry telemetry;
-    private boolean isDataLogStarted = false;
 
     public Telemetry() {
         RobotPose = NetworkTableInstance.getDefault().getStructTopic("Drivetrain/RobotPose", Pose2d.struct).publish();
@@ -75,10 +70,7 @@ public class Telemetry extends SubsystemBase{
         DrivetrainNowDoing.set(drivetrain.NowDoing);
         ElevatorNowDoing.set(elevator.NowDoing);
 
-        if(!isDataLogStarted){
-            DataLog();
-            isDataLogStarted = true;
-        }
+        DataLog();
     }
 
     @Override
