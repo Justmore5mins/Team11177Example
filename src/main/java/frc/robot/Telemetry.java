@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggedPowerDistribution;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 import org.littletonrobotics.urcl.URCL;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -95,7 +96,7 @@ public class Telemetry extends SubsystemBase{
         Logger.recordOutput("Vision/Targets", VisionTargets.get());
         Logger.registerURCL(URCL.startExternal());
         LoggedPowerDistribution.getInstance(Constants.PDHCANID, ModuleType.kCTRE);
-        Logger.setReplaySource(new WPILOGReader("home/lvuser/logs/%s.wplog".formatted(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))));
+        Logger.addDataReceiver(new WPILOGWriter());
     }
 
     public static Telemetry getInstance(){
