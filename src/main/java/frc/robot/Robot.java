@@ -6,6 +6,7 @@ package frc.robot;
 
 import org.littletonrobotics.junction.LoggedRobot;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,7 +36,10 @@ public class Robot extends LoggedRobot { //改成 LoggedRobot 以使用機器人
 
   @Override
   public void disabledExit() {
-    Drivetrain.getInstance().PoseEstimator.addVisionMeasurement(Vision.getInstance().getPose(), RobotController.getFPGATime()/1e6); //TODO: 看這邊
+    //TODO: 看這邊
+    Pose2d visionPose = Vision.getInstance().getPose();
+    if (visionPose != null) Drivetrain.getInstance().PoseEstimator.addVisionMeasurement(visionPose, RobotController.getFPGATime()/1e6);
+    
   }
 
   @Override
