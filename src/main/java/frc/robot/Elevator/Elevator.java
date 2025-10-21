@@ -2,6 +2,7 @@ package frc.robot.Elevator;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.utils.ReefHeight;
 
 public class Elevator extends SubsystemBase{
-    public SparkMax LeftMotor, RightMotor;
+    public SparkFlex LeftMotor, RightMotor;
     public RelativeEncoder MotionEncoder;
     public SparkClosedLoopController MotionPID;
     private SparkMaxConfig LeftConfig, RightConfig;
@@ -25,8 +26,8 @@ public class Elevator extends SubsystemBase{
     public String NowDoing = "null";
 
     private Elevator(){
-        LeftMotor = new SparkMax(Constants.LeftID, MotorType.kBrushless);
-        RightMotor = new SparkMax(Constants.RightID, MotorType.kBrushless);
+        LeftMotor = new SparkFlex(Constants.LeftID, MotorType.kBrushless);
+        RightMotor = new SparkFlex(Constants.RightID, MotorType.kBrushless);
         MotionEncoder = LeftMotor.getEncoder();
         MotionPID = LeftMotor.getClosedLoopController();
 
